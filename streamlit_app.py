@@ -8,7 +8,7 @@ import plotly.express as px
 import pydeck as pdk
 import streamlit as st
 
-st.set_page_config("Anthropic theme", "🟠", initial_sidebar_state="collapsed")
+st.set_page_config("Anthropic theme", "🟠")
 st.logo("https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/anthropic.png")
 st.title("Anthropic theme")
 
