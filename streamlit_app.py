@@ -63,7 +63,6 @@ if st.checkbox("Enable CSS hacks", True):
     )
     
 
-
 def page1():
     pass
 
@@ -72,11 +71,18 @@ def page2():
     pass
 
 
+def page3():
+    pass
+
+
 st.navigation(
-    [
-        st.Page(page1, title="Page 1", icon=":material/home:"),
-        st.Page(page2, title="Page 2", icon=":material/settings:"),
-    ]
+    {
+        "General": [
+            st.Page(page1, title="Home", icon=":material/home:"),
+            st.Page(page2, title="Data visualizations", icon=":material/monitoring:"),
+        ],
+        "Admin": [st.Page(page3, title="Settings", icon=":material/settings:")],
+    }
 )
 
 
@@ -89,7 +95,7 @@ st.write("st.write")
 st.markdown("st.markdown")
 st.markdown("st.markdown with help", help="Hello!")
 st.markdown(
-    "Markdown features: **bold** *italic* ~strikethrough~ `code` $a=b$ 🐶 :cat: :material/home: :streamlit: <- -> <-> -- >= <= ~="
+    "Markdown features: **bold** *italic* ~strikethrough~ [link](https://streamlit.io) `code` $a=b$ 🐶 :cat: :material/home: :streamlit: <- -> <-> -- >= <= ~="
 )
 st.markdown("""
 Text colors: 
@@ -100,7 +106,7 @@ Text colors:
 
 :blue-background[:blue[blue]] :green-background[:green[green]] :orange-background[:orange[orange]] :red-background[:red[red]] :violet-background[:violet[violet]] :gray-background[:gray[gray]] :rainbow-background[:rainbow[rainbow]] :primary-background[:primary[primary]]
 """)
-st.title("st.title", help="Hello!")
+st.title("st.title")
 st.title("st.title with help", help="Hello!")
 st.header("st.header")
 st.header("st.header with help", help="Hello!")
@@ -379,16 +385,18 @@ text_contents = "This is some text"
 st.download_button("st.download_button", data=text_contents)
 
 "st.feedback"
-st.feedback()
+st.feedback("thumbs")
+st.feedback("faces")
+st.feedback("stars")
 
 st.link_button("st.link_button", "https://streamlit.io")
 
 st.page_link("https://streamlit.io", label="st.page_link", icon=":material/home:")
 
-checkbox_input = st.checkbox("st.checkbox")
+checkbox_input = st.checkbox("st.checkbox", True)
 st.write(f"Your checkbox input is {checkbox_input}!")
 
-toggle_input = st.toggle("st.toggle")
+toggle_input = st.toggle("st.toggle", True)
 st.write(f"Your toggle input is {toggle_input}!")
 
 radio_input = st.radio("st.radio", ["cat", "dog"])
@@ -397,33 +405,39 @@ st.write(f"Your radio input is {radio_input}!")
 radio_input = st.radio("st.radio horizontal", ["cat", "dog"], horizontal=True)
 st.write(f"Your radio input is {radio_input}!")
 
-selectbox_input = st.selectbox("st.selectbox", ["cat", "dog"])
+selectbox_input = st.selectbox(
+    "st.selectbox", ["cat", "dog", "monkey", "snake", "bird"]
+)
 st.write(f"Your selectbox input is {selectbox_input}!")
 
-multiselect_input = st.multiselect("st.multiselect", ["cat", "dog"])
+multiselect_input = st.multiselect(
+    "st.multiselect",
+    ["cat", "dog", "monkey", "snake", "bird"],
+    default=["cat", "monkey"],
+)
 st.write(f"Your multiselect input is {multiselect_input}!")
 
-pills_input = st.pills("st.pills", ["cat", "dog", "monkey", "snake", "bird"])
-st.write(f"Your pills input is {pills_input}!")
-
 pills_input = st.pills(
-    "st.pills multi", ["cat", "dog", "monkey", "snake", "bird"], selection_mode="multi"
+    "st.pills multi",
+    ["cat", "dog", "monkey", "snake", "bird"],
+    selection_mode="multi",
+    default=["cat", "monkey"],
 )
 st.write(f"Your pills input is {pills_input}!")
-
-segmented_control_input = st.segmented_control(
-    "st.segmented_control", ["cat", "dog", "monkey", "snake", "bird"]
-)
-st.write(f"Your segmented control input is {segmented_control_input}!")
 
 segmented_control_input = st.segmented_control(
     "st.segmented_control multi",
     ["cat", "dog", "monkey", "snake", "bird"],
     selection_mode="multi",
+    default=["cat", "monkey"],
 )
 st.write(f"Your segmented control input is {segmented_control_input}!")
 
-select_slider_input = st.select_slider("st.select_slider", ["cat", "dog"])
+select_slider_input = st.select_slider(
+    "st.select_slider",
+    options=["xsmall", "small", "medium", "large", "xlarge"],
+    value="small",
+)
 st.write(f"Your select_slider input is {select_slider_input}!")
 
 color_input = st.color_picker("st.color_picker")
@@ -432,7 +446,7 @@ st.write(f"Your color input hex is {color_input}!")
 number_input = st.number_input("st.number_input")
 st.write(f"Your number input is {number_input}!")
 
-slider_input = st.slider("st.slider")
+slider_input = st.slider("st.slider", value=30)
 st.write(f"Your slider input is {slider_input}!")
 
 date_input = st.date_input("st.date_input")
@@ -505,12 +519,11 @@ with st.popover("st.popover"):
 st.sidebar.write("st.sidebar")
 
 with st.sidebar:
-    st.selectbox("st.selectbox sidebar", ["foo", "bar", "baz"])
+    st.selectbox("st.selectbox sidebar", ["cat", "dog", "monkey", "snake", "bird"])
     st.button("st.button sidebar")
-    st.checkbox("st.checkbox sidebar")
+    st.checkbox("st.checkbox sidebar", True)
     st.info("st.info sidebar")
     st.expander("st.expander sidebar").write("works!")
-
 
 "st.tabs"
 tab_a, tab_b = st.tabs(["tab 1", "tab 2"])
