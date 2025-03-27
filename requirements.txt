@@ -1,4 +1,4 @@
-https://core-previews.s3-us-west-2.amazonaws.com/pr-10368/streamlit-1.42.0-py2.py3-none-any.whl
+streamlit
 plotly
 altair
 numpy
